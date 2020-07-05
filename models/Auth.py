@@ -1,12 +1,12 @@
 import psycopg2
 import time
 import random
-
+from config.Config import strDb
 
 class Auth :
 
     def get(self,login,password) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select loginname,password from Auth where loginname='"+login+"' and password='"+password+"'")
 
@@ -30,7 +30,7 @@ class Auth :
         return data
 
     def validate(self,token) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select loginname,lastRequest from Auth where token='"+token+"'")
 

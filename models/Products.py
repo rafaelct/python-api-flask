@@ -1,13 +1,13 @@
 import psycopg2
 from .utils.InsertTable import InsertTable
 from .utils.UpdateTable import UpdateTable
-
+from config.Config import strDb
 
 class Products :
 
     def add(self,name,brand,codProduct,qtd,linkImg) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Products")
@@ -28,7 +28,7 @@ class Products :
 
     def update(self,id,name,brand,codProduct,linkImg) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.updateTable = UpdateTable("Products")
@@ -48,7 +48,7 @@ class Products :
         self.conn.close()
 
     def getAll(self) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products")
 
@@ -73,7 +73,7 @@ class Products :
         return self.listData
 
     def get(self,id) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products where id = "+str(id))
 
@@ -99,7 +99,7 @@ class Products :
 
     def addQtd(self,id,qtd) :
         self.listData = self.get(id)
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         #self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products where id = "+str(id))
 
@@ -121,7 +121,7 @@ class Products :
 
     def removeQtd(self,id,qtd) :
         self.listData = self.get(id)
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         #self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products where id = "+str(id))
 
@@ -145,7 +145,7 @@ class Products :
 
         returnSelectId = self.get(id)
 
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.cursor.execute("delete from Products where id = "+str(id))

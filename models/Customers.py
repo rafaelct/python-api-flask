@@ -1,13 +1,14 @@
 import psycopg2
 from .utils.InsertTable import InsertTable
 from .utils.UpdateTable import UpdateTable
+from config.Config import strDb
 
 
 class Customers :
 
     def add(self,name,fullname,birth,document,gender) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=postgres")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Customers")
@@ -27,7 +28,7 @@ class Customers :
 
     def update(self,id,name,fullname,birth,document,gender) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.updateTable = UpdateTable("Customers")
@@ -47,7 +48,7 @@ class Customers :
         self.conn.close()
 
     def getAll(self) :
-        self.conn = psycopg2.connect("host=postgresql_container dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,name,fullname,to_char(birth,'MM/DD/YYYY'),gender,document from Customers")
 
@@ -70,7 +71,7 @@ class Customers :
         return self.listData
 
     def get(self,id) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,name,fullname,to_char(birth,'MM/DD/YYYY'),gender,document from Customers where id = "+str(id))
 
@@ -96,7 +97,7 @@ class Customers :
 
         returnSelectId = self.get(id)
 
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.cursor.execute("delete from Customers where id = "+str(id))

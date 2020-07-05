@@ -1,13 +1,13 @@
 import psycopg2
 from .utils.InsertTable import InsertTable
 from .utils.UpdateTable import UpdateTable
-
+from config.Config import strDb
 
 class Carts :
 
     def add(self,customerId,productId) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Carts")
@@ -24,7 +24,7 @@ class Carts :
         self.conn.close()
 
     def getAll(self) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY') from Carts")
 
@@ -46,7 +46,7 @@ class Carts :
         return self.listData
 
     def get(self,id) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY') from Carts where id = "+str(id))
 
@@ -68,7 +68,7 @@ class Carts :
         return self.listData
 
     def getCustomer(self,customerId) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY') from Carts where customerId = "+str(customerId))
 
@@ -94,7 +94,7 @@ class Carts :
 
         returnSelectId = self.get(id)
 
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.cursor.execute("delete from Carts where id = "+str(id))
@@ -109,7 +109,7 @@ class Carts :
 
         returnSelectId = self.getCustomer(customerId)
 
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         self.cursor.execute("delete from Carts where customerId = "+str(customerId))

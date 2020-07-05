@@ -2,7 +2,7 @@ import psycopg2
 from .utils.InsertTable import InsertTable
 from .utils.UpdateTable import UpdateTable
 from .Carts import Carts
-
+from config.Config import strDb
 
 class Orders :
 
@@ -14,7 +14,7 @@ class Orders :
 
         
 
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
 
         
@@ -39,7 +39,7 @@ class Orders :
         data = carts.deleteCustomer(customerId)
 
     def getAll(self) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY'),orderstatus from Orders")
 
@@ -62,7 +62,7 @@ class Orders :
         return self.listData
 
     def get(self,id) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY'),orderstatus from Orders where id = "+str(id))
 
@@ -85,7 +85,7 @@ class Orders :
         return self.listData
 
     def getCustomer(self,customerId) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,customerId,productId,to_char(registration,'MM/DD/YYYY'),orderstatus from Orders where customerId = "+str(customerId))
 
