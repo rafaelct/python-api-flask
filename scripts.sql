@@ -1,5 +1,7 @@
 create database store;
 
+\c store
+
 create table Auth (
 	id serial primary key,
 	loginname character varying(30) not null,
@@ -38,3 +40,4 @@ create table Orders (
 	productId integer not null,
 	registration date not null,
 	orderStatus character varying(200));
+
