@@ -7,7 +7,7 @@ class Customers :
 
     def add(self,name,fullname,birth,document,gender) :
         
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect("dbname=store user=postgres password=postgres")
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Customers")
@@ -47,7 +47,7 @@ class Customers :
         self.conn.close()
 
     def getAll(self) :
-        self.conn = psycopg2.connect("dbname=store user=postgres password=admin")
+        self.conn = psycopg2.connect("host=postgresql_container dbname=store user=postgres password=admin")
         self.cursor = self.conn.cursor()
         self.cursor.execute("select id,name,fullname,to_char(birth,'MM/DD/YYYY'),gender,document from Customers")
 
