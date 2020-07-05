@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 @app.route("/registry", methods=['POST'])
 def epRegistryPOST():
-    registration = Registry()
+    registry = Registry()
 
-    return registration.methodPost(request=request)
+    return registry.methodPost(request=request)
 
 @app.route("/auth", methods=['POST'])
 def epAuthPOST():

@@ -8,7 +8,7 @@ class Registry :
         
         registration = ModelRegistry()
 
-        login = request.args.get("login")
+        login = request.args.get("loginname")
         password = request.args.get("password")
         fullname = request.args.get("fullname")
 

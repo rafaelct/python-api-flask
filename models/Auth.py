@@ -1,7 +1,7 @@
 import psycopg2
 import time
 import random
-from config.Config import strDb
+from config.Config import strDb, expiredToken
 
 class Auth :
 
@@ -30,6 +30,10 @@ class Auth :
         return data
 
     def validate(self,token) :
+
+        if token == None :
+            return 1
+            
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
         self.cursor.execute("select loginname,lastRequest from Auth where token='"+token+"'")
@@ -42,26 +46,30 @@ class Auth :
             login = item[0]
             lastRequestBefore = item[1]
         
+        if lastRequestBefore == "" :
+            return 1
+
         lastRequestNow = str(time.time() ).split('.')[0]
         seconds = int(lastRequestNow) - int(lastRequestBefore)
         print("Seconds: "+ str(seconds))
 
-        if seconds <= 60 :
+        if seconds <= expiredToken :
             #lastRequest = str(time.time() ).split('.')[0]
             #token = lastRequest + str(random.randint(1000,9999) )
 
             self.cursor.execute("update Auth set lastRequest="+lastRequestNow+" where loginname='"+login+"'")
             self.conn.commit()
+            self.cursor.close()
+            self.conn.close()
+
             return 0
         else :
+
+            self.cursor.close()
+            self.conn.close()
+
             return 1
 
-
-        
-        self.cursor.close()
-        self.conn.close()
-        
-        return data
 
 if __name__ == "__main__" :
     auth = Auth()

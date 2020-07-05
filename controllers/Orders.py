@@ -1,5 +1,6 @@
 from models.Orders import Orders as ModelOrders
 from controllers.utils.StatusReturn import StatusReturn
+from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
 
 class Orders :
@@ -8,9 +9,17 @@ class Orders :
 
         orders = ModelOrders()
 
+        token = request.args.get("token")
         id = request.args.get("id")
         customerId = request.args.get("customerId")
-       
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+
+
         statusReturn = StatusReturn()
 
         try :
@@ -35,7 +44,15 @@ class Orders :
     def methodPost(self,request) :
         orders = ModelOrders()
 
+        token = request.args.get("token")
         customerId = request.args.get("customerId")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+
 
         statusReturn = StatusReturn()
 

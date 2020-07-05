@@ -1,5 +1,6 @@
 from models.Products import Products as ModelProducts
 from controllers.utils.StatusReturn import StatusReturn
+from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
 
 class Products :
@@ -7,7 +8,15 @@ class Products :
     def methodGet(self,request) :
         products = ModelProducts()
 
+        token = request.args.get("token")
         id = request.args.get("id")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+
 
         statusReturn = StatusReturn()
 
@@ -29,12 +38,19 @@ class Products :
     def methodPost(self,request) :
         products = ModelProducts()
 
+        token = request.args.get("token")
         name = request.args.get("name")
         brand = request.args.get("brand")
         #registration = request.args.get("registration")
         codProduct = request.args.get("codProduct")
         qtd = request.args.get("qtd")
         linkImg = request.args.get("linkImg")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -50,6 +66,7 @@ class Products :
     def methodPut(self,request) :
         products = ModelProducts()
 
+        token = request.args.get("token")
         id = request.args.get("id")
         name = request.args.get("name")
         brand = request.args.get("brand")
@@ -57,6 +74,12 @@ class Products :
         codProduct = request.args.get("codProduct")
         qtd = request.args.get("qtd")
         linkImg = request.args.get("linkImg")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -77,6 +100,7 @@ class Products :
     def methodDelete(self,request) :
         products = ModelProducts()
 
+        token = request.args.get("token")
         id = request.args.get("id")
         name = request.args.get("name")
         brand = request.args.get("brand")
@@ -84,6 +108,13 @@ class Products :
         codProduct = request.args.get("codProduct")
         qtd = request.args.get("qtd")
         linkImg = request.args.get("linkImg")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+
 
         statusReturn = StatusReturn()
 

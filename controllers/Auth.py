@@ -8,7 +8,7 @@ class Auth :
         
         auth = ModelAuth()
 
-        login = request.args.get("login")
+        login = request.args.get("loginname")
         password = request.args.get("password")
 
         statusReturn = StatusReturn()

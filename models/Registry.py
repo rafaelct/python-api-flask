@@ -11,7 +11,7 @@ class Registry :
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Auth")
-        self.insertTable.addValue("login","'"+login+"'")
+        self.insertTable.addValue("loginname","'"+login+"'")
         self.insertTable.addValue("password","'"+password+"'")
         self.insertTable.addValue("fullname","'"+fullname+"'")
         self.insertTable.addValue("registration","current_date")

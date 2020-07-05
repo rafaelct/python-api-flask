@@ -1,5 +1,6 @@
 from models.Customers import Customers as ModelCustomers
 from controllers.utils.StatusReturn import StatusReturn
+from controllers.utils.ValidateToken import ValidateToken
 from controllers.utils.Cpf import Cpf
 from flask import jsonify
 
@@ -10,8 +11,15 @@ class Customers :
         #data = ""
 
         #if request.method == 'GET' :
+        token = request.args.get("token")
         id = request.args.get("id")
 
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+        
         statusReturn = StatusReturn()
 
         try :
@@ -30,11 +38,18 @@ class Customers :
     def methodPost(self,request) :
         customers = ModelCustomers()
 
+        token = request.args.get("token")
         name = request.args.get("name")
         fullname = request.args.get("fullname")
         birth = request.args.get("birth")
         document = request.args.get("document")
         gender = request.args.get("gender")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -56,12 +71,19 @@ class Customers :
     def methodPut(self,request) :
         customers = ModelCustomers()
 
+        token = requests.args.get("token")
         id = request.args.get("id")
         name = request.args.get("name")
         fullname = request.args.get("fullname")
         birth = request.args.get("birth")
         document = request.args.get("document")
         gender = request.args.get("gender")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -82,7 +104,14 @@ class Customers :
     def methodDelete(self,request) :
         customers = ModelCustomers()
 
+        token = request.args.get("token")
         id = request.args.get("id")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -131,6 +160,7 @@ class Customers :
             listErrors.append(error)
         
         return listErrors
+    
 
 
 

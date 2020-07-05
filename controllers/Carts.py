@@ -1,5 +1,6 @@
 from models.Carts import Carts as ModelCarts
 from controllers.utils.StatusReturn import StatusReturn
+from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
 
 class Carts :
@@ -7,8 +8,15 @@ class Carts :
     def methodGet(self,request) :
         carts = ModelCarts()
 
+        token = request.args.get("token")
         id = request.args.get("id")
         customerId = request.args.get("customerId")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
@@ -30,9 +38,17 @@ class Carts :
     def methodPost(self,request) :
         carts = ModelCarts()
 
+        token = request.args.get("token")
         customerId = request.args.get("customerId")
         productId = request.args.get("productId")
         #registration = request.args.get("registration")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
+
 
         statusReturn = StatusReturn()
 
@@ -48,10 +64,17 @@ class Carts :
     def methodDelete(self,request) :
         carts = ModelCarts()
 
+        token = request.args.get("token")
         id = request.args.get("id")
         customerId = request.args.get("customerId")
         productId = request.args.get("productId")
         #registration = request.args.get("registration")
+
+        validateToken = ValidateToken()
+        dataReturn = validateToken.validate(token)
+
+        if len(dataReturn) > 0 :
+            return jsonify( dataReturn )
 
         statusReturn = StatusReturn()
 
