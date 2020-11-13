@@ -3,6 +3,7 @@ from controllers.utils.StatusReturn import StatusReturn
 from controllers.utils.ValidateToken import ValidateToken
 from controllers.utils.Cpf import Cpf
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Customers :
 
@@ -38,12 +39,23 @@ class Customers :
     def methodPost(self,request) :
         customers = ModelCustomers()
 
-        token = request.args.get("token")
-        name = request.args.get("name")
-        fullname = request.args.get("fullname")
-        birth = request.args.get("birth")
-        document = request.args.get("document")
-        gender = request.args.get("gender")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        name = getKey(data,"name")
+        fullname = getKey(data,"fullname")
+        birth = getKey(data,"birth")
+        document = getKey(data,"document")
+        gender = getKey(data,"gender")
+        
+
+        #token = request.args.get("token")
+        #name = request.args.get("name")
+        #fullname = request.args.get("fullname")
+        #birth = request.args.get("birth")
+        #document = request.args.get("document")
+        #gender = request.args.get("gender")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
@@ -71,13 +83,23 @@ class Customers :
     def methodPut(self,request) :
         customers = ModelCustomers()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
-        name = request.args.get("name")
-        fullname = request.args.get("fullname")
-        birth = request.args.get("birth")
-        document = request.args.get("document")
-        gender = request.args.get("gender")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        name = getKey(data,"name")
+        fullname = getKey(data,"fullname")
+        birth = getKey(data,"birth")
+        document = getKey(data,"document")
+        gender = getKey(data,"gender")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
+        #name = request.args.get("name")
+        #fullname = request.args.get("fullname")
+        #birth = request.args.get("birth")
+        #document = request.args.get("document")
+        #gender = request.args.get("gender")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
@@ -104,8 +126,12 @@ class Customers :
     def methodDelete(self,request) :
         customers = ModelCustomers()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        #token = request.args.get("token")
+        #id = request.args.get("id")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)

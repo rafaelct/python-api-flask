@@ -2,6 +2,7 @@ from models.Orders import Orders as ModelOrders
 from controllers.utils.StatusReturn import StatusReturn
 from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Orders :
 
@@ -44,8 +45,13 @@ class Orders :
     def methodPost(self,request) :
         orders = ModelOrders()
 
-        token = request.args.get("token")
-        customerId = request.args.get("customerId")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        customerId = getKey(data,"customerId")
+        
+        #token = request.args.get("token")
+        #customerId = request.args.get("customerId")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)

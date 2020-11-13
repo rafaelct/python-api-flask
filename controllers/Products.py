@@ -2,6 +2,7 @@ from models.Products import Products as ModelProducts
 from controllers.utils.StatusReturn import StatusReturn
 from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Products :
 
@@ -38,13 +39,21 @@ class Products :
     def methodPost(self,request) :
         products = ModelProducts()
 
-        token = request.args.get("token")
-        name = request.args.get("name")
-        brand = request.args.get("brand")
-        #registration = request.args.get("registration")
-        codProduct = request.args.get("codProduct")
-        qtd = request.args.get("qtd")
-        linkImg = request.args.get("linkImg")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        name = getKey(data,"name")
+        brand = getKey(data,"brand")
+        codProduct = getKey(data,"codProduct")
+        qtd = getKey(data,"qtd")
+        linkImg = getKey(data,"linkImg")
+
+        #token = request.args.get("token")
+        #name = request.args.get("name")
+        #brand = request.args.get("brand")
+        #codProduct = request.args.get("codProduct")
+        #qtd = request.args.get("qtd")
+        #linkImg = request.args.get("linkImg")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
@@ -66,14 +75,23 @@ class Products :
     def methodPut(self,request) :
         products = ModelProducts()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
-        name = request.args.get("name")
-        brand = request.args.get("brand")
-        #registration = request.args.get("registration")
-        codProduct = request.args.get("codProduct")
-        qtd = request.args.get("qtd")
-        linkImg = request.args.get("linkImg")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        name = getKey(data,"name")
+        brand = getKey(data,"brand")
+        codProduct = getKey(data,"codProduct")
+        qtd = getKey(data,"qtd")
+        linkImg = getKey(data,"linkImg")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
+        #name = request.args.get("name")
+        #brand = request.args.get("brand")
+        #codProduct = request.args.get("codProduct")
+        #qtd = request.args.get("qtd")
+        #linkImg = request.args.get("linkImg")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
@@ -100,14 +118,24 @@ class Products :
     def methodDelete(self,request) :
         products = ModelProducts()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
-        name = request.args.get("name")
-        brand = request.args.get("brand")
-        registration = request.args.get("registration")
-        codProduct = request.args.get("codProduct")
-        qtd = request.args.get("qtd")
-        linkImg = request.args.get("linkImg")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        name = getKey(data,"name")
+        id = getKey(data,"id")
+        brand = getKey(data,"brand")
+        codProduct = getKey(data,"codProduct")
+        qtd = getKey(data,"qtd")
+        linkImg = getKey(data,"linkImg")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
+        #name = request.args.get("name")
+        #brand = request.args.get("brand")
+        #registration = request.args.get("registration")
+        #codProduct = request.args.get("codProduct")
+        #qtd = request.args.get("qtd")
+        #linkImg = request.args.get("linkImg")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)

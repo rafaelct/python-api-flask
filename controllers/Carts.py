@@ -2,6 +2,7 @@ from models.Carts import Carts as ModelCarts
 from controllers.utils.StatusReturn import StatusReturn
 from controllers.utils.ValidateToken import ValidateToken
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Carts :
 
@@ -38,10 +39,15 @@ class Carts :
     def methodPost(self,request) :
         carts = ModelCarts()
 
-        token = request.args.get("token")
-        customerId = request.args.get("customerId")
-        productId = request.args.get("productId")
-        #registration = request.args.get("registration")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        customerId = getKey(data,"customerId")
+        productId = getKey(data,"productId")
+        
+        #token = request.args.get("token")
+        #customerId = request.args.get("customerId")
+        #productId = request.args.get("productId")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
@@ -64,11 +70,18 @@ class Carts :
     def methodDelete(self,request) :
         carts = ModelCarts()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
-        customerId = request.args.get("customerId")
-        productId = request.args.get("productId")
-        #registration = request.args.get("registration")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        customerId = getKey(data,"customerId")
+        productId = getKey(data,"productId")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
+        #customerId = request.args.get("customerId")
+        #productId = request.args.get("productId")
+        
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
