@@ -1,6 +1,7 @@
 from models.Auth import Auth as ModelAuth
 from controllers.utils.StatusReturn import StatusReturn
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Auth :
 
@@ -8,8 +9,12 @@ class Auth :
         
         auth = ModelAuth()
 
-        login = request.args.get("loginname")
-        password = request.args.get("password")
+        data = request.get_json(silent=True)
+
+        login = getKey(data,"loginname")
+        password = getKey(data,"password")
+        #login = request.args.get("loginname")
+        #password = request.args.get("password")
 
         statusReturn = StatusReturn()
 
