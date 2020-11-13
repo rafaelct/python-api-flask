@@ -7,7 +7,7 @@ class Registry :
 
     def add(self,login,password,fullname) :
         
-        self.conn = psycopg2.connect(strDb)
+        self.conn = psycopg2.connect(strDb, sslmode='require')
         self.cursor = self.conn.cursor()
 
         self.insertTable = InsertTable("Auth")

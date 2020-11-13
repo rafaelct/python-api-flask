@@ -88,7 +88,7 @@ class Products :
             if id != None and qtd != None and name == None and brand == None and codProduct == None and linkImg == None :
                 products.addQtd(id=id,qtd=qtd)
             else :
-                products.update(id=id,name=name,brand=brand,codProduct=codProduct,qtd=qtd,linkImg=linkImg)
+                products.update(id=id,name=name,brand=brand,codProduct=codProduct,linkImg=linkImg)
             
             
             return jsonify( statusReturn.getStatus(codReturn=0,msgReturn="Success") )

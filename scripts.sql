@@ -4,7 +4,7 @@ create database store;
 
 create table Auth (
 	id serial primary key,
-	loginname character varying(30) not null,
+	loginname character varying(30) not null UNIQUE,
 	password character varying(20) not null,
 	fullname character varying(50),
 	registration date not null,

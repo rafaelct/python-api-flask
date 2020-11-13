@@ -71,7 +71,7 @@ class Customers :
     def methodPut(self,request) :
         customers = ModelCustomers()
 
-        token = requests.args.get("token")
+        token = request.args.get("token")
         id = request.args.get("id")
         name = request.args.get("name")
         fullname = request.args.get("fullname")
@@ -155,7 +155,7 @@ class Customers :
             error['msgerro'] = "document is invalid"
             listErrors.append(error)
 
-        if gender != "M" or gender != "F" :
+        if gender != "M" and gender != "F" :
             error['msgerro'] = "gender is invalid format wait M or F"
             listErrors.append(error)
         

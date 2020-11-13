@@ -6,7 +6,7 @@ from config.Config import strDb, expiredToken
 class Auth :
 
     def get(self,login,password) :
-        self.conn = psycopg2.connect(strDb)
+        self.conn = psycopg2.connect(strDb, sslmode='require')
         self.cursor = self.conn.cursor()
         self.cursor.execute("select loginname,password from Auth where loginname='"+login+"' and password='"+password+"'")
 

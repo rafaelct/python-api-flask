@@ -7,7 +7,9 @@ RUN apt install -y python3-pip
 RUN pip3 install flask
 RUN pip3 install psycopg2-binary
 EXPOSE 5000
-WORKDIR /api
+#WORKDIR /api
+COPY . /
+CMD ls -l
 CMD python3 web.py
 
 

@@ -110,7 +110,7 @@ class Products :
         for item in self.listData :
             self.qtdAtual = item['qtd']
 
-        self.qtdNova = self.qtdAtual + qtd
+        self.qtdNova = int(self.qtdAtual) + int(qtd)
         self.cursor.execute("update Products set qtd = "+str(self.qtdNova)+" where id = "+str(id))
         self.conn.commit()
 
