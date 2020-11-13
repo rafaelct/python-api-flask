@@ -5,7 +5,7 @@ from controllers.Customers import Customers
 from controllers.Products import Products
 from controllers.Carts import Carts
 from controllers.Orders import Orders
-
+import os
 
 app = Flask(__name__)
 
@@ -100,4 +100,5 @@ def epCartsDELETE():
     return carts.methodDelete(request=request)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0',port=port)
