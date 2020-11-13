@@ -32,12 +32,16 @@ create table Carts (
 	id serial primary key,
 	customerId integer not null,
 	productId integer not null,
-	registration date not null);
+	registration date not null,
+	FOREIGN KEY (customerId) REFERENCES Customers (id),
+	FOREIGN KEY (productId) REFERENCES Products (id));
 
 create table Orders (
 	id serial primary key,
 	customerId integer not null,
 	productId integer not null,
 	registration date not null,
-	orderStatus character varying(200));
+	orderStatus character varying(200),
+	FOREIGN KEY (customerId) REFERENCES Customers (id),
+	FOREIGN KEY (productId) REFERENCES Products (id));
 
