@@ -1,6 +1,7 @@
 from models.Registry import Registry as ModelRegistry
 from controllers.utils.StatusReturn import StatusReturn
 from flask import jsonify
+from controllers.utils.getKey import getKey
 
 class Registry :
 
@@ -8,9 +9,15 @@ class Registry :
         
         registration = ModelRegistry()
 
-        login = request.args.get("loginname")
-        password = request.args.get("password")
-        fullname = request.args.get("fullname")
+        data = request.get_json(silent=True)
+
+        login = getKey(data,"loginname")
+        password = getKey(data,"password")
+        fullname = getKey(data,"fullname")
+
+        #login = request.args.get("loginname")
+        #password = request.args.get("password")
+        #fullname = request.args.get("fullname")
 
         statusReturn = StatusReturn()
 
