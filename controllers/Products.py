@@ -9,8 +9,13 @@ class Products :
     def methodGet(self,request) :
         products = ModelProducts()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)

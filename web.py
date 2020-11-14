@@ -21,7 +21,7 @@ def epAuthPOST():
 
     return auth.methodPost(request=request)
 
-@app.route("/customers", methods=['GET'])
+@app.route("/customers/get", methods=['POST'])
 def epCustomersGET():
     customers = Customers()
 
@@ -45,7 +45,7 @@ def epCustomersDELETE():
 
     return customers.methodDelete(request=request)
 
-@app.route("/products", methods=['GET'])
+@app.route("/products/get", methods=['POST'])
 def epProductsGET():
     products = Products()
 
@@ -69,7 +69,7 @@ def epProductsDELETE():
 
     return products.methodDelete(request=request)
 
-@app.route("/orders", methods=['GET'])
+@app.route("/orders/get", methods=['POST'])
 def epOrdersGET():
     orders = Orders()
 
@@ -81,7 +81,7 @@ def epOrdersPOST():
 
     return orders.methodPost(request=request)
 
-@app.route("/carts", methods=['GET'])
+@app.route("/carts/get", methods=['POST'])
 def epCartsGET():
     carts = Carts()
 

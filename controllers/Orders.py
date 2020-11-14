@@ -10,9 +10,15 @@ class Orders :
 
         orders = ModelOrders()
 
-        token = request.args.get("token")
-        id = request.args.get("id")
-        customerId = request.args.get("customerId")
+        data = request.get_json(silent=True)
+
+        token = getKey(data,"token")
+        id = getKey(data,"id")
+        customerId = getKey(data,"customerId")
+
+        #token = request.args.get("token")
+        #id = request.args.get("id")
+        #customerId = request.args.get("customerId")
 
         validateToken = ValidateToken()
         dataReturn = validateToken.validate(token)
