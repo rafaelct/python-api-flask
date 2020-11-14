@@ -38,6 +38,8 @@ class Orders :
 
         data = carts.deleteCustomer(customerId)
 
+        return data
+
     def getAll(self) :
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()

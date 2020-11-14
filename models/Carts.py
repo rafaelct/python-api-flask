@@ -17,12 +17,19 @@ class Carts :
        
         #self.cursor.execute("insert into Customers (name,fullname,birth,document,gender) values('"+name+"','"+fullname+"',to_date('"+birth+"','MM/DD/YYYY'),'"+document+"','"+gender[0]+"')")
         #print(self.insertTable.getInsert())
-        self.cursor.execute(self.insertTable.getInsert() )
 
-        self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
+        try:
 
+            self.cursor.execute(self.insertTable.getInsert() )
+
+            self.conn.commit()
+            self.cursor.close()
+            self.conn.close()
+        except Exception as error :
+            return 1
+        
+        return 0
+        
     def getAll(self) :
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()

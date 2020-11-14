@@ -15,9 +15,17 @@ class Registry :
         self.insertTable.addValue("password","'"+password+"'")
         self.insertTable.addValue("fullname","'"+fullname+"'")
         self.insertTable.addValue("registration","current_date")
-        self.cursor.execute( self.insertTable.getInsert() )
 
-        self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
+        try:
+
+            self.cursor.execute( self.insertTable.getInsert() )
+
+            self.conn.commit()
+            self.cursor.close()
+            self.conn.close()
+
+        except Exception as error :
+            return 1
+        
+        return 0   
          
