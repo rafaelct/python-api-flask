@@ -24,7 +24,7 @@ create table Products (
 	name character varying(200) not null,
 	brand character varying(50) not null,
 	Registration date not null,
-	codProduct integer not null,
+	codProduct integer not null UNIQUE,
 	linkImg character varying(500) not null,
 	qtd integer not null);
 
