@@ -21,18 +21,13 @@ class Products :
         #self.cursor.execute("insert into Customers (name,fullname,birth,document,gender) values('"+name+"','"+fullname+"',to_date('"+birth+"','MM/DD/YYYY'),'"+document+"','"+gender[0]+"')")
         #print(self.insertTable.getInsert())
 
-        try:
 
-            self.cursor.execute(self.insertTable.getInsert() )
 
-            self.conn.commit()
-            self.cursor.close()
-            self.conn.close()
+        self.cursor.execute(self.insertTable.getInsert() )
 
-        except Exception as error :
-            return 1
-        
-        return 0
+        self.conn.commit()
+        self.cursor.close()
+        self.conn.close()
 
     def update(self,id,name,brand,codProduct,linkImg) :
         

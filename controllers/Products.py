@@ -153,7 +153,7 @@ class Products :
 
         try :
 
-            if id != None and qtd != None and name == None and brand == None and registration == None and codProduct == None and linkImg == None :
+            if id != None and qtd != None and name == None and brand == None and codProduct == None and linkImg == None :
                 products.removeQtd(id=id,qtd=qtd)
             else :
                 products.delete(id=id)
