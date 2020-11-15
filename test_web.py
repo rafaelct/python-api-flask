@@ -11,13 +11,27 @@ from models.Auth import Auth as AuthModel
 def test_registry_add() :
     registryModel = RegistryModel()
 
-    codReturn = registryModel.add(login="teste",password="teste",fullname="Teste o tal")
+
+    codReturn :int
+
+    try:
+        registryModel.add(login="teste",password="teste",fullname="Teste o tal")
+        codReturn = 0
+    except:
+        codReturn = 1
+
     assert codReturn == 0
     
 def test_registry_add_unique_constraint() :
     registryModel = RegistryModel()
 
-    codReturn = registryModel.add(login="teste",password="teste",fullname="Teste o tal")
+    codReturn :int 
+    try:
+        registryModel.add(login="teste",password="teste",fullname="Teste o tal")
+        codReturn = 0
+    except:
+        codReturn = 1
+
     assert codReturn == 1
 
 def test_auth_get() :
@@ -42,9 +56,22 @@ def test_auth_validate() :
 def test_Customers_add() :
     customersModel = CustomersModel()
 
-    codReturn = customersModel.add(name="Fulano",fullname="Fulano de tal",birth="05/04/1960",document="25305309042",gender="M")
+
+    codReturn :int 
+    try:
+        customersModel.add(name="Fulano",fullname="Fulano de tal",birth="05/04/1960",document="25305309042",gender="M")
+        codReturn = 0
+    except:
+        codReturn = 1
+
     assert codReturn == 0
-    codReturn = customersModel.add(name="Siclano",fullname="Siclano de tali",birth="01/11/1977",document="14926960052",gender="M")
+    
+    try:
+        customersModel.add(name="Siclano",fullname="Siclano de tali",birth="01/11/1977",document="14926960052",gender="M")
+        codReturn = 0
+    except:
+        codReturn = 1
+
     assert codReturn == 0
 
 def test_Customers_getAll() :
@@ -132,20 +159,24 @@ def test_Customers_update() :
     assert listProducts[0]['birth'] == "05/05/1988"
     assert listProducts[0]['document'] == "25305309042"
     assert listProducts[0]['gender'] == "F"
-
-def test_Products_legal() :
-    productsModel = ProductsModel()
-    assert productsModel.alo() == "legal"
-    #assert products.alo() == "legalddd"
     
 def test_Products_add() :
     productsModel = ProductsModel()
 
-    codReturn = productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
+    codReturn :int
+    try:
+        productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png",price="1320.99")
+        codReturn = 0
+    except:
+        codReturn = 1
 
     assert codReturn == 0
 
-    codReturn = productsModel.add(name="Fogão",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png")
+    try:
+        productsModel.add(name="Fogão",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png",price="500.00")
+        codReturn = 0
+    except:
+        codReturn = 1
 
     assert codReturn == 0
 
@@ -153,11 +184,21 @@ def test_Products_add() :
 def test_Products_unique_constraint_codProduct_in_table_products():
     productsModel = ProductsModel()
 
-    codReturn = productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
+    codReturn :int
+    
+    try:
+        productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png",price="1320.99")
+        codReturn = 0
+    except:
+        codReturn = 1
 
     assert codReturn == 1
 
-    codReturn = productsModel.add(name="Fogão",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png")
+    try:
+        productsModel.add(name="Fogão",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png",price="500.00")
+        codReturn = 0
+    except:
+        codReturn = 1
 
     assert codReturn == 1
 
@@ -172,7 +213,7 @@ def test_Products_get() :
     dadoEsperado['qtd'] = 1
     dadoEsperado['codProduct'] = 1
     dadoEsperado['linkImg'] = "/1.png"
-
+    dadoEsperado['price'] = "$1,320.99"
     arrayDados.append(dadoEsperado)
 
     
@@ -187,9 +228,8 @@ def test_Products_get() :
         assert item['qtd'] == arrayDados[i]['qtd']
         assert item['codProduct'] == arrayDados[i]['codProduct']
         assert item['linkImg'] == arrayDados[i]['linkImg']
+        assert item['price'] == arrayDados[i]['price']
         i = i + 1
-
-
 
     assert len(listProducts) == 1
 
@@ -204,6 +244,7 @@ def test_Products_getAll() :
     dataWaited['qtd'] = 1
     dataWaited['codProduct'] = 1
     dataWaited['linkImg'] = "/1.png"
+    dataWaited['price'] = "$1,320.99"
 
     arrayData.append(dataWaited)
 
@@ -213,6 +254,7 @@ def test_Products_getAll() :
     dataWaited['qtd'] = 2
     dataWaited['codProduct'] = 2
     dataWaited['linkImg'] = "/2.png"
+    dataWaited['price'] = "$500.00"
 
     arrayData.append(dataWaited)
 
@@ -228,6 +270,7 @@ def test_Products_getAll() :
         assert item['qtd'] == arrayData[i]['qtd']
         assert item['codProduct'] == arrayData[i]['codProduct']
         assert item['linkImg'] == arrayData[i]['linkImg']
+        assert item['price'] == arrayData[i]['price']
         i = i + 1
 
 
@@ -263,7 +306,7 @@ def test_Products_removeQtd() :
 def test_Products_update() :
     productsModel = ProductsModel()
 
-    productsModel.update(id=1,name="Batedeira",brand="Wallita",codProduct="1",linkImg="/1.png")
+    productsModel.update(id=1,name="Batedeira",brand="Wallita",codProduct="1",linkImg="/1.png",price="1320.99")
 
     listProducts = productsModel.get(id=1)
 
@@ -272,11 +315,30 @@ def test_Products_update() :
 def test_Carts_add() :
     cartsModel = CartsModel()
 
-    codReturn = cartsModel.add(customerId=1,productId=1)
+    codReturn :int
+    
+    try:
+        cartsModel.add(customerId=1,productId=1)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
-    codReturn = cartsModel.add(customerId=2,productId=2)
+    
+    try:
+        cartsModel.add(customerId=2,productId=2)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
-    codReturn = cartsModel.add(customerId=2,productId=1)
+    
+    try:
+        cartsModel.add(customerId=2,productId=1)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
 
 def test_Carts_getAll() :
@@ -371,7 +433,17 @@ def test_Carts_getCustomer() :
 def test_Orders_add() :
     ordersModel = OrdersModel()
 
-    itemReturn = ordersModel.add(customerId=2)
+    codReturn :int
+
+    try:
+        ordersModel.add(customerId=2)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
+    assert codReturn == 0
+
+    itemReturn = ordersModel.getCustomer(customerId=2)
 
     assert itemReturn[0]['customerId'] == 2
     assert itemReturn[0]['productId'] == 2
@@ -412,24 +484,56 @@ def test_Orders_getAll() :
 def test_Carts_add2() :
     cartsModel = CartsModel()
 
-    codReturn = cartsModel.add(customerId=1,productId=1)
+    codReturn :int
+    
+    try:
+        cartsModel.add(customerId=1,productId=1)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
-    codReturn = cartsModel.add(customerId=2,productId=2)
+    
+    try:
+        cartsModel.add(customerId=2,productId=2)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
-    codReturn = cartsModel.add(customerId=2,productId=1)
+    
+    try:
+        cartsModel.add(customerId=2,productId=1)
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
 
 def test_Customers_add2() :
     customersModel = CustomersModel()
 
-    codReturn = customersModel.add(name="Juca",fullname="Juca o tal",birth="05/04/1965",document="30383365058",gender="M")
+    codReturn :int
+    
+    try:
+        customersModel.add(name="Juca",fullname="Juca o tal",birth="05/04/1965",document="30383365058",gender="M")
+        codReturn = 0
+    except:
+        codReturn = 1
+
     assert codReturn == 0
 
 def test_Products_add2() :
     productsModel = ProductsModel()
 
-    codReturn = productsModel.add(name="PlayStation 5",brand="Sony",qtd="1",codProduct="3",linkImg="/3.png")
-
+    codReturn :int
+    
+    try:
+        productsModel.add(name="PlayStation 5",brand="Sony",qtd="1",codProduct="3",linkImg="/3.png",price="10000.00")
+        codReturn = 0
+    except:
+        codReturn = 1
+    
     assert codReturn == 0
 
 
