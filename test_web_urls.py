@@ -1,11 +1,3 @@
-from models.Products import Products as ProductsModel
-from controllers.Products import Products as ProductsController
-from models.Customers import Customers as CustomersModel
-from controllers.Customers import Customers as CustomersController
-from models.Carts import Carts as CartsModel
-from models.Orders import Orders as OrdersModel
-from models.Registry import Registry as RegistryModel
-from models.Auth import Auth as AuthModel
 import requests
 from testweb.Customers import *
 from testweb.Products import *
@@ -93,16 +85,7 @@ def auth_get(loginname,password) :
     print(txt)
 
     return txt['data']['token']
-    
-def test_auth_validate() :
-    authModel = AuthModel()
-
-    token = auth_get(loginname="teste",password="teste")
-
-    print(token)    
-
-    assert len(token) > 0
-    
+        
 def test_Customers_add() :
 
     token = auth_get(loginname="teste",password="teste")
@@ -290,7 +273,7 @@ def test_Customers_update() :
 def test_Products_add() :
     token = auth_get(loginname="teste",password="teste")
 
-    data = add_products_json(token=token,name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
+    data = add_products_json(token=token,name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png",price="1320.99")
     print(data)
     #codReturn = productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
     headers = get_headers()
@@ -302,7 +285,7 @@ def test_Products_add() :
 
     token = auth_get(loginname="teste",password="teste")
     
-    data = add_products_json(token=token,name="Fogao",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png")
+    data = add_products_json(token=token,name="Fogao",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png",price="500.00")
     print(data)
     txt = requests.post("http://localhost:5000/products",headers=headers,data=data).json()
     print(txt)
@@ -314,7 +297,7 @@ def test_Products_add() :
 def test_Products_unique_constraint_codProduct_in_table_products():
     token = auth_get(loginname="teste",password="teste")
 
-    data = add_products_json(token=token,name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
+    data = add_products_json(token=token,name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png",price="1320.99")
     print(data)
     #codReturn = productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
     headers = get_headers()
@@ -325,7 +308,7 @@ def test_Products_unique_constraint_codProduct_in_table_products():
     
     assert txt['codReturn'] == 1
 
-    data = add_products_json(token=token,name="Fogao",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png")
+    data = add_products_json(token=token,name="Fogao",brand="Brastemp",qtd="2",codProduct="2",linkImg="/2.png",price="500.00")
     
     txt = requests.post("http://localhost:5000/products",headers=headers,data=data).json()
     print(txt)
@@ -353,14 +336,15 @@ def test_Products_get() :
 
     arrayDados = []
 
-    dadoEsperado = {}
-    dadoEsperado['name'] = "Batedeira"
-    dadoEsperado['brand'] = "Arno"
-    dadoEsperado['qtd'] = 1
-    dadoEsperado['codProduct'] = 1
-    dadoEsperado['linkImg'] = "/1.png"
+    dataWaited = {}
+    dataWaited['name'] = "Batedeira"
+    dataWaited['brand'] = "Arno"
+    dataWaited['qtd'] = 1
+    dataWaited['codProduct'] = 1
+    dataWaited['linkImg'] = "/1.png"
+    dataWaited['price'] = "$1,320.99"
 
-    arrayDados.append(dadoEsperado)
+    arrayDados.append(dataWaited)
 
     
     #listProducts = productsModel.get(id=1)
@@ -374,6 +358,7 @@ def test_Products_get() :
         assert item['qtd'] == arrayDados[i]['qtd']
         assert item['codProduct'] == arrayDados[i]['codProduct']
         assert item['linkImg'] == arrayDados[i]['linkImg']
+        assert item['price'] == arrayDados[i]['price']
         i = i + 1
 
 
@@ -405,6 +390,7 @@ def test_Products_getAll() :
     dataWaited['qtd'] = 1
     dataWaited['codProduct'] = 1
     dataWaited['linkImg'] = "/1.png"
+    dataWaited['price'] = "$1,320.99"
 
     arrayData.append(dataWaited)
 
@@ -414,6 +400,7 @@ def test_Products_getAll() :
     dataWaited['qtd'] = 2
     dataWaited['codProduct'] = 2
     dataWaited['linkImg'] = "/2.png"
+    dataWaited['price'] = "$500.00"
 
     arrayData.append(dataWaited)
 
@@ -429,6 +416,7 @@ def test_Products_getAll() :
         assert item['qtd'] == arrayData[i]['qtd']
         assert item['codProduct'] == arrayData[i]['codProduct']
         assert item['linkImg'] == arrayData[i]['linkImg']
+        assert item['price'] == arrayData[i]['price']
         i = i + 1
 
 
@@ -571,7 +559,7 @@ def test_Products_update() :
 
     token = auth_get(loginname="teste",password="teste")
 
-    data = update_products_json(token=token,id="1",name="Batedeira",brand="Wallita",codProduct="1",linkImg="/1.png")
+    data = update_products_json(token=token,id="1",name="Batedeira",brand="Wallita",codProduct="1",linkImg="/1.png",price="1320.99")
 
     print(data)
 
@@ -937,7 +925,7 @@ def test_Products_add2() :
 
     token = auth_get(loginname="teste",password="teste")
 
-    data = add_products_json(token=token,name="PlayStation 5",brand="Sony",qtd="1",codProduct="3",linkImg="/3.png")
+    data = add_products_json(token=token,name="PlayStation 5",brand="Sony",qtd="1",codProduct="3",linkImg="/3.png",price="10000.00")
     print(data)
     #codReturn = productsModel.add(name="Batedeira",brand="Arno",qtd="1",codProduct="1",linkImg="/1.png")
 

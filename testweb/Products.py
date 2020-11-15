@@ -1,6 +1,6 @@
 
 
-def add_products_json(token,name,brand,qtd,codProduct,linkImg) :
+def add_products_json(token,name,brand,qtd,codProduct,linkImg,price) :
 
     data = {}
     data['token'] = token
@@ -9,10 +9,11 @@ def add_products_json(token,name,brand,qtd,codProduct,linkImg) :
     data['qtd'] = qtd
     data['codProduct'] = codProduct
     data['linkImg'] = linkImg
+    data['price'] = price
     data = str(data).replace("'",'"')
     return data
 
-def update_products_json(token,id,name,brand,codProduct,linkImg) :
+def update_products_json(token,id,name,brand,codProduct,linkImg,price) :
 
     data = {}
     data['token'] = token
@@ -22,6 +23,7 @@ def update_products_json(token,id,name,brand,codProduct,linkImg) :
     #data['qtd'] = qtd
     data['codProduct'] = codProduct
     data['linkImg'] = linkImg
+    data['price'] = price
     data = str(data).replace("'",'"')
     return data
 

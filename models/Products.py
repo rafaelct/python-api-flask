@@ -5,7 +5,7 @@ from config.Config import strDb
 
 class Products :
 
-    def add(self,name,brand,codProduct,qtd,linkImg) :
+    def add(self,name,brand,codProduct,qtd,linkImg,price) :
         
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
@@ -17,6 +17,7 @@ class Products :
         self.insertTable.addValue("codProduct",str(codProduct))
         self.insertTable.addValue("linkImg","'"+linkImg+"'")
         self.insertTable.addValue("qtd",str(qtd))
+        self.insertTable.addValue("price",price)
         
         #self.cursor.execute("insert into Customers (name,fullname,birth,document,gender) values('"+name+"','"+fullname+"',to_date('"+birth+"','MM/DD/YYYY'),'"+document+"','"+gender[0]+"')")
         #print(self.insertTable.getInsert())
@@ -29,7 +30,7 @@ class Products :
         self.cursor.close()
         self.conn.close()
 
-    def update(self,id,name,brand,codProduct,linkImg) :
+    def update(self,id,name,brand,codProduct,linkImg,price) :
         
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
@@ -40,6 +41,7 @@ class Products :
         #self.updateTable.addValue("registration","current_date")
         self.updateTable.addValue("codProduct",str(codProduct))
         self.updateTable.addValue("linkImg","'"+linkImg+"'")
+        self.updateTable.addValue("price",price)
         self.updateTable.addWhere("id = "+str(id) )
         
         #self.cursor.execute("insert into Customers (name,fullname,birth,document,gender) values('"+name+"','"+fullname+"',to_date('"+birth+"','MM/DD/YYYY'),'"+document+"','"+gender[0]+"')")
@@ -53,7 +55,7 @@ class Products :
     def getAll(self) :
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
-        self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products")
+        self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd,price from Products")
 
         #self.data = {}
         self.listData = []
@@ -67,6 +69,7 @@ class Products :
             data['codProduct'] = item[4]
             data['linkImg'] = item[5]
             data['qtd'] = item[6]
+            data['price'] = item[7]
 
             self.listData.append(data)
         
@@ -78,7 +81,7 @@ class Products :
     def get(self,id) :
         self.conn = psycopg2.connect(strDb)
         self.cursor = self.conn.cursor()
-        self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd from Products where id = "+str(id))
+        self.cursor.execute("select id,name,brand,to_char(registration,'MM/DD/YYYY'),codProduct,linkImg,qtd,price from Products where id = "+str(id))
 
         #self.data = {}
         self.listData = []
@@ -92,6 +95,7 @@ class Products :
             data['codProduct'] = item[4]
             data['linkImg'] = item[5]
             data['qtd'] = item[6]
+            data['price'] = item[7]
 
             self.listData.append(data)
         

@@ -52,6 +52,7 @@ class Products :
         codProduct = getKey(data,"codProduct")
         qtd = getKey(data,"qtd")
         linkImg = getKey(data,"linkImg")
+        price = getKey(data,"price")
 
         #token = request.args.get("token")
         #name = request.args.get("name")
@@ -69,7 +70,7 @@ class Products :
         statusReturn = StatusReturn()
 
         try :
-            products.add(name=name,brand=brand,codProduct=codProduct,qtd=qtd,linkImg=linkImg)
+            products.add(name=name,brand=brand,codProduct=codProduct,qtd=qtd,linkImg=linkImg,price=price)
             
             return jsonify( statusReturn.getStatus(codReturn=0,msgReturn="Success") )
 
@@ -89,6 +90,7 @@ class Products :
         codProduct = getKey(data,"codProduct")
         qtd = getKey(data,"qtd")
         linkImg = getKey(data,"linkImg")
+        price = getKey(data,"price")
 
         #token = request.args.get("token")
         #id = request.args.get("id")
@@ -111,7 +113,7 @@ class Products :
             if id != None and qtd != None and name == None and brand == None and codProduct == None and linkImg == None :
                 products.addQtd(id=id,qtd=qtd)
             else :
-                products.update(id=id,name=name,brand=brand,codProduct=codProduct,linkImg=linkImg)
+                products.update(id=id,name=name,brand=brand,codProduct=codProduct,linkImg=linkImg,price=price)
             
             
             return jsonify( statusReturn.getStatus(codReturn=0,msgReturn="Success") )
@@ -132,6 +134,7 @@ class Products :
         codProduct = getKey(data,"codProduct")
         qtd = getKey(data,"qtd")
         linkImg = getKey(data,"linkImg")
+        price = getKey(data,"price")
 
         #token = request.args.get("token")
         #id = request.args.get("id")
@@ -153,7 +156,7 @@ class Products :
 
         try :
 
-            if id != None and qtd != None and name == None and brand == None and codProduct == None and linkImg == None :
+            if id != None and qtd != None and name == None and brand == None and codProduct == None and linkImg == None and price == None :
                 products.removeQtd(id=id,qtd=qtd)
             else :
                 products.delete(id=id)
@@ -165,7 +168,7 @@ class Products :
             
             return jsonify( statusReturn.getStatus(codReturn=1,msgReturn=str(error) ) )
 
-    def validate(self,name,brand,codProduct,qtd,linkImg) :
+    def validate(self,name,brand,codProduct,qtd,linkImg,price) :
 
         listErrors = []
         error = {}
@@ -185,6 +188,8 @@ class Products :
         if len( str(linkImg) ) == 0 :
             error['msgerro'] = "linkImg is required"
             listErrors.append(error)
+        if len( str(price) ) == 0 :
+            error['msgerro'] = "price is required"
 
 
         return listErrors

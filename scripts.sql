@@ -35,7 +35,8 @@ create table Products (
 	Registration date not null,
 	codProduct integer not null UNIQUE,
 	linkImg character varying(500) not null,
-	qtd integer not null);
+	qtd integer not null,
+	price money not null);
 
 create table Carts (
 	id serial primary key,
