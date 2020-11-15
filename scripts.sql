@@ -2,6 +2,14 @@ create database store;
 
 \c store
 
+
+--select * from Orders;
+drop table Auth;
+drop table Orders;
+drop table Carts;
+drop table Products;
+drop table Customers;
+
 create table Auth (
 	id serial primary key,
 	loginname character varying(30) not null UNIQUE,
@@ -18,6 +26,7 @@ create table Customers (
 	birth date not null,
 	document character varying(11) not null,
 	gender character varying(1) not null);
+
 
 create table Products (
 	id serial primary key,
